@@ -208,15 +208,7 @@ class Account extends Eloquent
 
     public function getDateTime($date = 'now')
     {
-        if ( ! $date) {
-            return null;
-        } elseif ( ! $date instanceof \DateTime) {
-            $date = new \DateTime($date);
-        }
-
-        $date->setTimeZone(new \DateTimeZone($this->getTimezone()));
-
-        return $date;
+        return new \DateTime($date, new \DateTimeZone($this->getTimezone()));
     }
 
     public function getCustomDateFormat()
@@ -247,10 +239,10 @@ class Account extends Eloquent
 
     public function formatDate($date)
     {
-        $date = $this->getDateTime($date);
-
         if ( ! $date) {
             return null;
+        } elseif ( ! $date instanceof \DateTime) {
+            $date = new \DateTime($date);
         }
 
         return $date->format($this->getCustomDateFormat());
@@ -258,10 +250,10 @@ class Account extends Eloquent
 
     public function formatDateTime($date)
     {
-        $date = $this->getDateTime($date);
-
         if ( ! $date) {
             return null;
+        } elseif ( ! $date instanceof \DateTime) {
+            $date = new \DateTime($date);
         }
 
         return $date->format($this->getCustomDateTimeFormat());
@@ -269,10 +261,10 @@ class Account extends Eloquent
 
     public function formatTime($date)
     {
-        $date = $this->getDateTime($date);
-
         if ( ! $date) {
             return null;
+        } elseif ( ! $date instanceof \DateTime) {
+            $date = new \DateTime($date);
         }
 
         return $date->format($this->getCustomTimeFormat());
@@ -285,13 +277,7 @@ class Account extends Eloquent
 
     public function getCustomDateTimeFormat()
     {
-        $format = $this->datetime_format ? $this->datetime_format->format : DEFAULT_DATETIME_FORMAT;
-
-        if ($this->military_time) {
-            $format = str_replace('g:i a', 'H:i', $format);
-        }
-
-        return $format;
+        return $this->datetime_format ? $this->datetime_format->format : DEFAULT_DATETIME_FORMAT;
     }
 
     public function getGatewayByType($type = PAYMENT_TYPE_ANY)

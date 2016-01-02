@@ -3,7 +3,6 @@
 @section('head')
     @parent
 
-    @include('money_script')
   <script src="{{ asset('js/pdf.built.js') }}" type="text/javascript"></script>
 
   <script>

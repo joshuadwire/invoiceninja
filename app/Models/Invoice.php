@@ -380,7 +380,6 @@ class Invoice extends EntityModel implements BalanceAffecting
 
         $this->account->setVisible([
             'name',
-            'website',
             'id_number',
             'vat_number',
             'address1',

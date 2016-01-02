@@ -5,8 +5,7 @@
 
     <style type="text/css">
         .contact-file,
-        .task-file,
-        .payment-file {
+        .task-file {
             display: none;
         }
     </style>
@@ -135,9 +134,7 @@
     @foreach (\App\Services\ImportService::$sources as $source)
         if (val === '{{ $source }}') {
             @foreach (\App\Services\ImportService::$entityTypes as $entityType)
-                @if ($source != IMPORT_WAVE && $entityType == ENTITY_PAYMENT)
-                    // do nothing
-                @elseif (class_exists(\App\Services\ImportService::getTransformerClassName($source, $entityType)))
+                @if (class_exists(\App\Services\ImportService::getTransformerClassName($source, $entityType)))
                     $('.{{ $entityType }}-file').show();
                 @endif
             @endforeach
